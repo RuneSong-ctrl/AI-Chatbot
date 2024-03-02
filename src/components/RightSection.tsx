@@ -6,7 +6,7 @@ import robot2 from "@/assets/bot.png";
 import nouserlogo from "@/assets/profile (1).png";
 import Image from "next/image";
 
-const openAiAPI = "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";
+const openAiAPI = process.env.NEXT_PUBLIC_OPENAI_API_KEY;
 
 const RightSection = () => {
   const [message, setMessage] = useState("");
