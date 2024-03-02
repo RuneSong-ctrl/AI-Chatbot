@@ -1,0 +1,16 @@
+.mainpage {
+  display: flex;
+  flex-direction: row;
+  background-color: white;
+  width: 100vw;
+  height: 100vh;
+  font-family: "Roboto", sans-serif;
+  color: #333;
+}
+
+.rightOut {
+  background-color: blue;
+  width: 100%;
+
+  overflow: hidden;
+}
