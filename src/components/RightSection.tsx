@@ -10,16 +10,14 @@ const openAiAPI = process.env.NEXT_PUBLIC_OPENAI_API_KEY;
 
 const RightSection = () => {
   const [message, setMessage] = useState("");
-
-  const [allMessages, setAllMessages] = useState<any[]>([]);
+  const [allMessages, setAllMessages] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const sendMessage = async () => {
-    // console.log(message)
+    setIsLoading(true);
     let url = "https://api.openai.com/v1/chat/completions";
-
     let token = `Bearer ${openAiAPI}`;
     let model = "gpt-3.5-turbo";
-
     let messagesToSend = [
       ...allMessages,
       {
@@ -42,11 +40,12 @@ const RightSection = () => {
     let resjson = await res.json();
     if (resjson) {
       let newAllMessages = [...messagesToSend, resjson.choices[0].message];
-
       setAllMessages(newAllMessages);
       setMessage("");
+      setIsLoading(false);
     }
   };
+
   return (
     <div className={styles.rightSection}>
       <div className={styles.chatgptversion}>
@@ -54,7 +53,11 @@ const RightSection = () => {
         <p className={styles.text1}>AI ChatBot</p>
       </div>
 
-      {allMessages.length > 0 ? (
+      {isLoading ? (
+        <div className={styles.messages}>
+          <div className="loading-spinner"></div>
+        </div>
+      ) : allMessages.length > 0 ? (
         <div className={styles.messages}>
           {allMessages.map((msg, index) => (
             <div key={index} className={styles.message}>
