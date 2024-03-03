@@ -151,5 +151,7 @@
 
   .messages {
     padding-left: 5%;
+    width: 90%; /* Adjust width for smaller devices */
+    overflow-x: hidden; /* Hide horizontal overflow */
   }
 }
