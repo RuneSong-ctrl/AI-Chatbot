@@ -10,14 +10,18 @@ const openAiAPI = process.env.NEXT_PUBLIC_OPENAI_API_KEY;
 
 const RightSection = () => {
   const [message, setMessage] = useState("");
-  const [allMessages, setAllMessages] = useState([]);
-  const [isLoading, setIsLoading] = useState(false); //Loading message is not working sorry 
+
+  const [allMessages, setAllMessages] = useState<any[]>([]);
+
+  const [loading, setLoading] = useState(false); // State to track loading status
 
   const sendMessage = async () => {
-    setIsLoading(true);
+    setLoading(true); // Set loading to true when sending message
     let url = "https://api.openai.com/v1/chat/completions";
+
     let token = `Bearer ${openAiAPI}`;
     let model = "gpt-3.5-turbo";
+
     let messagesToSend = [
       ...allMessages,
       {
@@ -40,12 +44,12 @@ const RightSection = () => {
     let resjson = await res.json();
     if (resjson) {
       let newAllMessages = [...messagesToSend, resjson.choices[0].message];
+
       setAllMessages(newAllMessages);
       setMessage("");
-      setIsLoading(false);
     }
+    setLoading(false); // Set loading to false when response is received
   };
-
   return (
     <div className={styles.rightSection}>
       <div className={styles.chatgptversion}>
@@ -53,14 +57,12 @@ const RightSection = () => {
         <p className={styles.text1}>AI ChatBot</p>
       </div>
 
-      {isLoading ? (
-        <div className={styles.messages}>
-          <div className="loading-spinner"></div>
-        </div>
-      ) : allMessages.length > 0 ? (
+      {allMessages.length > 0 ? (
         <div className={styles.messages}>
           {allMessages.map((msg, index) => (
             <div key={index} className={styles.message}>
+              {loading && <div className={styles.loadingSpinner}></div>}{" "}
+              {/* Render loading spinner if loading is true */}
               <Image
                 src={msg.role === "user" ? nouserlogo : robot2}
                 width={50}
@@ -76,6 +78,8 @@ const RightSection = () => {
         </div>
       ) : (
         <div className={styles.nochat}>
+          {loading && <div className={styles.loadingSpinner}></div>}{" "}
+          {/* Render loading spinner if loading is true */}
           <div className={styles.s1}>
             <Image src={robot} alt="bot" height={70} width={70} />
             <h1>How can I help you today?</h1>
