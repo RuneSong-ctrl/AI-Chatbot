@@ -11,7 +11,7 @@ const openAiAPI = process.env.NEXT_PUBLIC_OPENAI_API_KEY;
 const RightSection = () => {
   const [message, setMessage] = useState("");
   const [allMessages, setAllMessages] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false); //Loading message is not working sorry 
 
   const sendMessage = async () => {
     setIsLoading(true);
