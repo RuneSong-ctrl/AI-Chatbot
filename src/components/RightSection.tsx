@@ -91,7 +91,7 @@ const RightSection = () => {
         <div className={styles.messagebar}>
           <input
             type="text"
-            placeholder="Ask me anything :D..."
+            placeholder="Ask me anything :D ..."
             onChange={(e) => setMessage(e.target.value)}
             value={message}
             onKeyDown={(e) => {
@@ -118,7 +118,7 @@ const RightSection = () => {
           </svg>
         </div>
         <p>
-          Chatbot may give incorrect information, consider to find valid
+          Chatbot may give incorrect information, consider finding valid
           information.
         </p>
       </div>
